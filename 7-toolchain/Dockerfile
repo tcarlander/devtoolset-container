@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos6
 LABEL MAINTAINER Marek Polacek <polacek@redhat.com>
 
 ENV SUMMARY="Red Hat Developer Toolset 7 Toolchain container image" \
@@ -20,7 +20,8 @@ LABEL com.redhat.component="devtoolset-7-toolchain-docker" \
       io.k8s.display-name="Developer Toolset 7 Toolchain" \
       usage="docker run -ti -v /src/app:/opt/app-root/src:z centos/devtoolset-7-toolchain-centos7 bash"
 
-RUN yum install -y centos-release-scl-rh && \
+RUN yum install -y yum-utils && \
+    yum install -y centos-release-scl-rh wget perl && \
     yum-config-manager --enable centos-sclo-rh-testing && \
     INSTALL_PKGS="devtoolset-7-gcc devtoolset-7-gcc-c++ devtoolset-7-gcc-gfortran devtoolset-7-gdb" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
