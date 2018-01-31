@@ -28,6 +28,13 @@ RUN yum install -y yum-utils && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y
 
+RUN yum install -y —setopt=tsflags=nodocs \
+        libatomic libatomic-devel \
+        libtool-ltdl \
+        libuuid-devel \
+        openssl-devel \
+    && yum clean all -y
+
 # Copy extra files to the image.
 COPY ./root/ /
 
